@@ -42,44 +42,43 @@ body{background-color: #8b008b;}
 .fotos {
 	width:50px;
 	height: 50px;
-	background-color: pink;
-}	
+	background-color: pink;}	
 
+h3, p {font-family: Cambria;}
 
 h3{color:purple;
-font-weight:bold;}
+font-weight:bold;
+font-size:19px;}
+
 p {color:#FF00FF;
-font-weight: bold;}
+font-weight: bold;
+font-size:15px;}
+
 h2 { background-color: #FE9BD2;
 	padding: 5px;}
 
 
-#Contenedor .link1 {
-	background-color:#A533FF;
-	color: white;
-}
-
-#Contenedor a:hover {
-	background-color: #A533FF;
-	color: white;
-}
+#Contenedor .link1{ 
+background-color:#A533FF;
+color: white;} 
+	
+#Contenedor a:hover{
+background-color:#A533FF;
+	color: white;}	
 
 #Contenedor a:active {
-	background-color: #A533FF;
-}
-
+	background-color:#A533FF;
+	color: white;}
 
 #Contenedor img {
   display: inline-block;
-  margin-right: 20px;
-}
+  margin-right: 20px;}
 
-#interes p {
-  display: inline-block;
+#interés p {display: inline-block;
   margin-right: 75px;
-  padding-left: 5px;
-}
+  padding-left: 5px;}
 
-#fotos img { height: 125px;
-		width: 125px;
-}
+#fotos img {height: 125px;
+	width: 125px;
+	border-radius: 15px;
+	border:3px solid black;}
