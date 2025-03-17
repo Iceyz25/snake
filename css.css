@@ -2,9 +2,12 @@ body{background-color: #2a0466;}
 
 
 #Contenedor {
-	width: 20%;
-	float: right;
-	margin-top: 30px;
+	position: relative;
+    	min-height: 100vh;
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    	flex-direction: column;
 	padding: 20px;}
 
 #Contenido {
