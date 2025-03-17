@@ -3,7 +3,7 @@ body{background-color: #2a0466;}
 
 #Contenedor {
 	width: 20%;
-	float: left;
+	float: right;
 	margin-top: 30px;
 	padding: 20px;
 	position: fixed;}
