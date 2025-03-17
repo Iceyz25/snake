@@ -11,9 +11,9 @@ body{background-color: #2a0466;}
 #Contenido {
 	border: 3px solid black;
 	background-color: #130130;
-	width: 70%;
+	width: 97%;
 	margin: auto;
-	float: left;
+	float: none;
 	padding: 20px;
 	border-radius: 30px;}
 
