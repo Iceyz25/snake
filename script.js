@@ -23,7 +23,7 @@ let snakeDirection = 'right';
 let food = { x: 0, y: 0 };
 let score = 0;
 let gameOver = false;
-
+let gameInterval;  // Variable para guardar el intervalo del juego
 // Función para generar la posición de la comida de manera aleatoria
 function generateFood() {
     food.x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
@@ -108,12 +108,17 @@ function changeDirection(event) {
 // Configuración para iniciar el juego
 function startGame() {
     generateFood();
-    setInterval(() => {
+    // Clear the previous game interval to prevent multiple intervals from running
+    if (gameInterval) {
+        clearInterval(gameInterval);
+    }
+
+    gameInterval = setInterval(() => {
         if (!gameOver) {
             moveSnake();
             drawGame();
         }
-    }, 100);
+    }, 100); // Controla la velocidad del juego (100 ms entre cada actualización)
 }
 // Iniciar el juego cuando el botón es clickeado
 document.getElementById('boton').addEventListener('click', () => {
