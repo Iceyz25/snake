@@ -27,6 +27,9 @@ function generateFood() {
     food.x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
     food.y = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
 }
+// Load the grid background sprite
+const gridImage = new Image();
+gridImage.src = "grid_sprite.png"; // Replace with your sprite file
 
 // Función para dibujar el juego
 function drawGame() {
@@ -40,6 +43,8 @@ function drawGame() {
 
     // Limpiar el canvas
     ctx.clearRect(0, 0, canvasSize, canvasSize);
+        // Draw the background sprite
+    ctx.drawImage(gridImage, 0, 0, canvasSize, canvasSize);
 
     // Dibujar la comida
     ctx.fillStyle = 'yellow';
