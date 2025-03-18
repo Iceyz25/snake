@@ -115,7 +115,14 @@ function startgame() {
         }
     }, 100);
 }
-
+// Iniciar el juego cuando el botón es clickeado
+document.getElementById('boton').addEventListener('click', () => {
+    gameOver = false;
+    score = 0;
+    snake = [{ x: 160, y: 160 }];
+    snakeDirection = 'right'; // Resetear dirección
+    startGame();
+});
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
 
