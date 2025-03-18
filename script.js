@@ -81,5 +81,43 @@ function moveSnake() {
     snake.unshift(head);
 
     // Verificar si la serpiente comió la comida
-    
+    if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        generateFood();
+    } else {
+        snake.pop();
+    }
+}
 
+// Función para cambiar la dirección de la serpiente
+function changeDirection(event) {
+    if (event.key === 'ArrowUp' && snakeDirection !== 'down') {
+        snakeDirection = 'up';
+    }
+    if (event.key === 'ArrowDown' && snakeDirection !== 'up') {
+        snakeDirection = 'down';
+    }
+    if (event.key === 'ArrowLeft' && snakeDirection !== 'right') {
+        snakeDirection = 'left';
+    }
+    if (event.key === 'ArrowRight' && snakeDirection !== 'left') {
+        snakeDirection = 'right';
+    }
+}
+
+// Configuración para iniciar el juego
+function startGame() {
+    generateFood();
+    setInterval(() => {
+        if (!gameOver) {
+            moveSnake();
+            drawGame();
+        }
+    }, 100);
+}
+
+// Escuchar las teclas para cambiar la dirección
+window.addEventListener('keydown', changeDirection);
+
+// Iniciar el juego
+startGame();
