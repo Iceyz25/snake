@@ -67,6 +67,9 @@ bodyImg.src = "bodyp.png"; // Body sprite
 const tailImg = new Image();
 tailImg.src = "tailp.png"; // Tail sprite
 
+const cornerImg = new Image();
+tailImg.src = "corner.png"; // Tail sprite
+
 
 // Función para dibujar el juego
 function drawGame() {
