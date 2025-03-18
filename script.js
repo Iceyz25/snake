@@ -31,7 +31,7 @@ function generateFood() {
 // Función para dibujar el juego
 function drawGame() {
     if (gameOver) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'yellow';
         ctx.font = '30px Arial';
         ctx.fillText('Game Over!', 200, canvasSize / 2);
         ctx.fillText('Puntaje: ' + score, 200, canvasSize / 2 + 40);
@@ -42,11 +42,11 @@ function drawGame() {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
 
     // Dibujar la comida
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'yellow';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 
     // Dibujar la serpiente
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = 'purple';
     snake.forEach(part => ctx.fillRect(part.x, part.y, gridSize, gridSize));
 
     // Dibujar el puntaje
