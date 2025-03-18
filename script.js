@@ -111,19 +111,29 @@ function drawGame() {
             let next = snake[index + 1];
 
             // Check if the body part is a corner
-            if ((prev.x < part.x && next.y > part.y) || (prev.y < part.y && next.x > part.x)) {
-                img = cornerImg; // Use a corner sprite
-                angle = Math.PI / 2; // Rotate for proper corner positioning
-            }
-            else if ((prev.x > part.x && next.y < part.y) || (prev.y > part.y && next.x < part.x)) {
-                img = cornerImg; // Another type of corner
-                angle = -Math.PI / 2;
-            }
+            // Check if the body part is a corner
+            if ((prev.x !== part.x && prev.y !== part.y) && (next.x !== part.x && next.y !== part.y)) {
+                img = cornerImg; // Use corner sprite
+
+    // Correctly determine which corner and apply proper rotation
+                if ((prev.x < part.x && next.y < part.y) || (next.x < part.x && prev.y < part.y)) {
+                    angle = 0; // Top-left corner
+                } 
+                else if ((prev.x > part.x && next.y < part.y) || (next.x > part.x && prev.y < part.y)) {
+                    angle = Math.PI / 2; // Top-right corner
+                } 
+                else if ((prev.x > part.x && next.y > part.y) || (next.x > part.x && prev.y > part.y)) {
+                    angle = Math.PI; // Bottom-right corner
+                } 
+                else if ((prev.x < part.x && next.y > part.y) || (next.x < part.x && prev.y > part.y)) {
+                    angle = -Math.PI / 2; // Bottom-left corner
+                }
+            } 
             else {
-                // If it's a straight piece, determine horizontal or vertical orientation
+                // If it's a straight segment, determine horizontal or vertical orientation
                 angle = (prev.x === next.x) ? Math.PI / 2 : 0;
             }
-        }
+
 
         drawRotatedImage(img, part.x, part.y, angle);
     });
