@@ -1,5 +1,30 @@
 body{background-color: #2a0466;}
 
+/* Estilos generales para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Estilo del canvas (área de juego) */
+canvas {
+    background-color: #000;
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+
+
+
+
 .blur-overlay {
     position: fixed;
     top: 0;
