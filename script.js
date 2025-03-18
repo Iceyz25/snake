@@ -52,7 +52,7 @@ function drawGame() {
     snake.forEach(part => ctx.fillRect(part.x, part.y, gridSize, gridSize));
 
     // Dibujar el puntaje
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'yellow';
     ctx.font = '16px Arial';
     ctx.fillText('Puntaje: ' + score, 10, 20);
 }
