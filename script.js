@@ -106,7 +106,7 @@ function changeDirection(event) {
 }
 
 // Configuración para iniciar el juego
-function startGame() {
+function hidePlay() {
     generateFood();
     setInterval(() => {
         if (!gameOver) {
@@ -120,4 +120,4 @@ function startGame() {
 window.addEventListener('keydown', changeDirection);
 
 // Iniciar el juego
-startGame();
+hideplay();
