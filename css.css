@@ -1,6 +1,6 @@
 body{background-color: #2a0466;}
 
-.blurred {
+#blurred {
     position: fixed;
     top: 0;
     left: 0;
