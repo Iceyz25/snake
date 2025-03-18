@@ -16,7 +16,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // Configuración del juego
-const gridSize = 40;
+const gridSize = 30;
 const canvasSize = 600;
 let snake = [{ x: 270, y: 270 }];
 let snakeDirection = 'right';
