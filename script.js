@@ -44,7 +44,8 @@ const canvasSize = 600;
 let snake = [
     { x: 270, y: 270 }, // Head
     { x: 240, y: 270 }, // Body
-    { x: 210, y: 270 }  // Tail
+    { x: 210, y: 270 } 
+    ];// Tail
 let snakeDirection = null; // No se mueve hasta que el jugador presione una tecla
 let food = { x: 0, y: 0 };
 let score = 0;
