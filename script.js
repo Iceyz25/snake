@@ -212,7 +212,7 @@ function startGame() {
             moveSnake();
             drawGame();
         }
-    }, 100);
+    }, 105);
 }
 
 // Reiniciar el juego al hacer clic en el canvas
