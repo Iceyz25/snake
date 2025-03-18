@@ -128,7 +128,7 @@ canvas.addEventListener('click', () => {
     if (gameOver) {
         gameOver = false;
         score = 0;
-        snake = [{ x: 270, y: 270 }];
+        snake = [{ x: 160, y: 160 }];
         snakeDirection = 'right'; // Reiniciar dirección
         startGame();
     }
