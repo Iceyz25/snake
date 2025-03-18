@@ -72,7 +72,20 @@ cornerImg.src = "corner.png"; // ✅ Now correctly assigns the source
 
 
 
-// Función para dibujar el juego
+function isCorner(prev, part, next) {
+    return (
+        (prev.x !== next.x && prev.y !== next.y) // Detects a turn (corner)
+    );
+}
+
+function getCornerRotation(prev, part, next) {
+    if (prev.x < part.x && next.y < part.y || next.x < part.x && prev.y < part.y) return 0; // ↘
+    if (prev.x > part.x && next.y < part.y || next.x > part.x && prev.y < part.y) return Math.PI / 2; // ↙
+    if (prev.x > part.x && next.y > part.y || next.x > part.x && prev.y > part.y) return Math.PI; // ↖
+    if (prev.x < part.x && next.y > part.y || next.x < part.x && prev.y > part.y) return -Math.PI / 2; // ↗
+    return 0;
+}
+
 function drawGame() {
     if (gameOver) {
         ctx.fillStyle = 'yellow';
@@ -82,67 +95,42 @@ function drawGame() {
         return;
     }
 
-    // Limpiar el canvas
     ctx.clearRect(0, 0, canvasSize, canvasSize);
-        // Draw the background sprite
     ctx.drawImage(gridImage, 0, 0, canvasSize, canvasSize);
-
-    // Dibujar la comida
+    
     ctx.fillStyle = 'yellow';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
-
-     // Draw snake
+    
     snake.forEach((part, index) => {
-        let img = bodyImg; // Default body sprite
-        let angle = 0; // Default angle (no rotation)
+        let img = bodyImg;
+        let angle = 0;
 
         if (index === 0) {
-            img = headImg; // Head sprite
-            angle = getRotationAngle(snakeDirection); // Get rotation angle for head
-        } 
-        else if (index === snake.length - 1) {
-            img = tailImg; // Tail sprite
-            let tailDirection = getTailDirection();
-            angle = getRotationAngle(tailDirection);
-        } 
-        else {
-            // Get previous and next segment positions
+            img = headImg;
+            angle = getRotationAngle(snakeDirection);
+        } else if (index === snake.length - 1) {
+            img = tailImg;
+            angle = getRotationAngle(getTailDirection());
+        } else {
             let prev = snake[index - 1];
             let next = snake[index + 1];
-
-            // Check if the body part is a corner
-            // Check if the body part is a corner
-            if ((prev.x !== part.x && prev.y !== part.y) && (next.x !== part.x && next.y !== part.y)) {
-                img = cornerImg; // Use corner sprite
-
-    // Correctly determine which corner and apply proper rotation
-                if ((prev.x < part.x && next.y < part.y) || (next.x < part.x && prev.y < part.y)) {
-                    angle = 0; // Top-left corner
-                } 
-                else if ((prev.x > part.x && next.y < part.y) || (next.x > part.x && prev.y < part.y)) {
-                    angle = Math.PI / 2; // Top-right corner
-                } 
-                else if ((prev.x > part.x && next.y > part.y) || (next.x > part.x && prev.y > part.y)) {
-                    angle = Math.PI; // Bottom-right corner
-                } 
-                else if ((prev.x < part.x && next.y > part.y) || (next.x < part.x && prev.y > part.y)) {
-                    angle = -Math.PI / 2; // Bottom-left corner
-                }
-            } 
-            else {
-                // If it's a straight segment, determine horizontal or vertical orientation
+            
+            if (isCorner(prev, part, next)) {
+                img = cornerImg;
+                angle = getCornerRotation(prev, part, next);
+            } else {
                 angle = (prev.x === next.x) ? Math.PI / 2 : 0;
             }
-
+        }
 
         drawRotatedImage(img, part.x, part.y, angle);
     });
 
-    // Dibujar el puntaje
     ctx.fillStyle = 'yellow';
     ctx.font = '16px Arial';
     ctx.fillText('Puntaje: ' + score, 10, 20);
 }
+
 
 // Función para mover la serpiente
 function moveSnake() {
@@ -232,4 +220,3 @@ document.getElementById('boton').addEventListener('click', startGame);
 
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
-
