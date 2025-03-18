@@ -51,8 +51,15 @@ function drawGame() {
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 
     // Dibujar la serpiente
-    ctx.fillStyle = 'purple';
-    snake.forEach(part => ctx.fillRect(part.x, part.y, gridSize, gridSize));
+        // Draw snake
+    snake.forEach((part, index) => {
+        if (index === 0) {
+            ctx.fillStyle = '#8105a1'; // Head color
+        } else {
+            ctx.fillStyle = '#a610cc'; // Body color
+        }
+        ctx.fillRect(part.x, part.y, gridSize, gridSize);
+    });
 
     // Dibujar el puntaje
     ctx.fillStyle = 'yellow';
