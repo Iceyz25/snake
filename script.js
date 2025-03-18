@@ -18,7 +18,7 @@ const ctx = canvas.getContext('2d');
 // Configuración del juego
 const gridSize = 40;
 const canvasSize = 600;
-let snake = [{ x: 270, y: 2700 }];
+let snake = [{ x: 270, y: 270 }];
 let snakeDirection = 'right';
 let food = { x: 0, y: 0 };
 let score = 0;
