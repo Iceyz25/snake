@@ -68,7 +68,8 @@ const tailImg = new Image();
 tailImg.src = "tailp.png"; // Tail sprite
 
 const cornerImg = new Image();
-tailImg.src = "corner.png"; // Tail sprite
+cornerImg.src = "corner.png"; // ✅ Now correctly assigns the source
+
 
 
 // Función para dibujar el juego
