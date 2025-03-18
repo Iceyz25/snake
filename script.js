@@ -121,7 +121,7 @@ document.getElementById('boton').addEventListener('click', () => {
     score = 0;
     snake = [{ x: 160, y: 160 }];
     snakeDirection = 'right'; // Resetear dirección
-    startGame();
+    startgame();
 });
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
