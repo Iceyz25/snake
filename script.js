@@ -1,15 +1,11 @@
 function sayHello() {
     alert("Hello from external JS!");
 }
+
 function hidePlay() {
     document.getElementById("Contenedor").style.display = "none";
     document.getElementsByClassName("blur-overlay")[0].style.display = "none";
 }
-
-
-
-
-
 
 // Obtener el canvas y su contexto
 const canvas = document.getElementById('gameCanvas');
@@ -19,12 +15,14 @@ const ctx = canvas.getContext('2d');
 const gridSize = 30;
 const canvasSize = 600;
 let snake = [{ x: 270, y: 270 }];
-let snakeDirection = 'right';
+let snakeDirection = null; // No se mueve hasta que el jugador presione una tecla
 let food = { x: 0, y: 0 };
 let score = 0;
 let gameOver = false;
-let gameInterval;  // Variable para guardar el intervalo del juego
-// Función para generar la posición de la comida de manera aleatoria
+let gameStarted = false; // Nuevo: evita que se mueva antes de presionar una tecla
+let gameInterval;
+
+// Función para generar la posición de la comida
 function generateFood() {
     food.x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
     food.y = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
@@ -35,8 +33,8 @@ function drawGame() {
     if (gameOver) {
         ctx.fillStyle = 'white';
         ctx.font = '30px Arial';
-        ctx.fillText('Game Over!', 100, canvasSize / 2);
-        ctx.fillText('Puntaje: ' + score, 100, canvasSize / 2 + 40);
+        ctx.fillText('Game Over!', 200, canvasSize / 2);
+        ctx.fillText('Puntaje: ' + score, 200, canvasSize / 2 + 40);
         return;
     }
 
@@ -59,6 +57,8 @@ function drawGame() {
 
 // Función para mover la serpiente
 function moveSnake() {
+    if (!gameStarted || !snakeDirection) return; // No se mueve si no ha comenzado
+
     const head = { ...snake[0] };
 
     if (snakeDirection === 'right') head.x += gridSize;
@@ -66,7 +66,7 @@ function moveSnake() {
     if (snakeDirection === 'up') head.y -= gridSize;
     if (snakeDirection === 'down') head.y += gridSize;
 
-    // Verificar si la serpiente choca con los bordes
+    // Verificar colisión con los bordes
     if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
         gameOver = true;
         return;
@@ -89,8 +89,12 @@ function moveSnake() {
     }
 }
 
-// Función para cambiar la dirección de la serpiente
+// Función para cambiar la dirección de la serpiente y empezar el juego
 function changeDirection(event) {
+    if (!gameStarted) {
+        gameStarted = true; // Ahora sí empieza el juego
+    }
+
     if (event.key === 'ArrowUp' && snakeDirection !== 'down') {
         snakeDirection = 'up';
     }
@@ -105,10 +109,16 @@ function changeDirection(event) {
     }
 }
 
-// Configuración para iniciar el juego
+// Función para iniciar o reiniciar el juego
 function startGame() {
     generateFood();
-    // Clear the previous game interval to prevent multiple intervals from running
+    gameStarted = false; // No empieza hasta que el jugador presione una tecla
+    snakeDirection = null; // No se mueve hasta que presione una tecla
+    gameOver = false;
+    score = 0;
+    snake = [{ x: 270, y: 270 }];
+
+    // Eliminar intervalos anteriores para evitar velocidad doble
     if (gameInterval) {
         clearInterval(gameInterval);
     }
@@ -118,26 +128,18 @@ function startGame() {
             moveSnake();
             drawGame();
         }
-    }, 100); // Controla la velocidad del juego (100 ms entre cada actualización)
+    }, 100);
 }
-// Iniciar el juego cuando el botón es clickeado
-document.getElementById('boton').addEventListener('click', () => {
-    gameOver = false;
-    score = 0;
-    snake = [{ x: 270, y: 270 }];
-    snakeDirection = 'right'; // Resetear dirección
-    startGame();
-});
 
+// Reiniciar el juego al hacer clic en el canvas
 canvas.addEventListener('click', () => {
     if (gameOver) {
-        gameOver = false;
-        score = 0;
-        snake = [{ x: 270, y: 270 }];
-        snakeDirection = 'right'; // Reiniciar dirección
         startGame();
     }
 });
+
+// Iniciar el juego cuando el botón es clickeado
+document.getElementById('boton').addEventListener('click', startGame);
 
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
