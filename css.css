@@ -1,6 +1,6 @@
 body{background-color: #2a0466;}
 
-.blur-overlay {
+#blur-overlay {
     position: fixed;
     top: 0;
     left: 0;
