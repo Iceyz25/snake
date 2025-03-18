@@ -6,6 +6,33 @@ function hidePlay() {
     document.getElementById("Contenedor").style.display = "none";
     document.getElementsByClassName("blur-overlay")[0].style.display = "none";
 }
+function drawRotatedImage(image, x, y, angle) {
+    ctx.save(); // Save current canvas state
+    ctx.translate(x + gridSize / 2, y + gridSize / 2); // Move origin to center of the tile
+    ctx.rotate(angle); // Rotate by calculated angle
+    ctx.drawImage(image, -gridSize / 2, -gridSize / 2, gridSize, gridSize); // Draw centered
+    ctx.restore(); // Restore original state
+}
+function getRotationAngle(direction) {
+    switch (direction) {
+        case 'right': return 0;
+        case 'down': return Math.PI / 2;
+        case 'left': return Math.PI;
+        case 'up': return -Math.PI / 2;
+        default: return 0;
+    }
+}
+function getTailDirection() {
+    let tail = snake[snake.length - 1];
+    let beforeTail = snake[snake.length - 2];
+
+    if (beforeTail.x < tail.x) return 'right';
+    if (beforeTail.x > tail.x) return 'left';
+    if (beforeTail.y < tail.y) return 'down';
+    if (beforeTail.y > tail.y) return 'up';
+    
+    return 'right'; // Default
+}
 
 // Obtener el canvas y su contexto
 const canvas = document.getElementById('gameCanvas');
@@ -31,6 +58,16 @@ function generateFood() {
 const gridImage = new Image();
 gridImage.src = "grid_sprite.png"; // Replace with your sprite file
 
+const headImg = new Image();
+headImg.src = "headp.png"; // Head sprite
+
+const bodyImg = new Image();
+bodyImg.src = "bodyp.png"; // Body sprite
+
+const tailImg = new Image();
+tailImg.src = "tailp.png"; // Tail sprite
+
+
 // Función para dibujar el juego
 function drawGame() {
     if (gameOver) {
@@ -50,15 +87,41 @@ function drawGame() {
     ctx.fillStyle = 'yellow';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 
-    // Dibujar la serpiente
-        // Draw snake
+     // Draw snake
     snake.forEach((part, index) => {
+        let img = bodyImg; // Default body sprite
+        let angle = 0; // Default angle (no rotation)
+
         if (index === 0) {
-            ctx.fillStyle = '#8105a1'; // Head color
-        } else {
-            ctx.fillStyle = '#a610cc'; // Body color
+            img = headImg; // Head sprite
+            angle = getRotationAngle(snakeDirection); // Get rotation angle for head
+        } 
+        else if (index === snake.length - 1) {
+            img = tailImg; // Tail sprite
+            let tailDirection = getTailDirection();
+            angle = getRotationAngle(tailDirection);
+        } 
+        else {
+            // Get previous and next segment positions
+            let prev = snake[index - 1];
+            let next = snake[index + 1];
+
+            // Check if the body part is a corner
+            if ((prev.x < part.x && next.y > part.y) || (prev.y < part.y && next.x > part.x)) {
+                img = cornerImg; // Use a corner sprite
+                angle = Math.PI / 2; // Rotate for proper corner positioning
+            }
+            else if ((prev.x > part.x && next.y < part.y) || (prev.y > part.y && next.x < part.x)) {
+                img = cornerImg; // Another type of corner
+                angle = -Math.PI / 2;
+            }
+            else {
+                // If it's a straight piece, determine horizontal or vertical orientation
+                angle = (prev.x === next.x) ? Math.PI / 2 : 0;
+            }
         }
-        ctx.fillRect(part.x, part.y, gridSize, gridSize);
+
+        drawRotatedImage(img, part.x, part.y, angle);
     });
 
     // Dibujar el puntaje
@@ -155,5 +218,4 @@ document.getElementById('boton').addEventListener('click', startGame);
 
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
-
 
