@@ -41,7 +41,10 @@ const ctx = canvas.getContext('2d');
 // Configuración del juego
 const gridSize = 30;
 const canvasSize = 600;
-let snake = [{ x: 270, y: 270 }];
+let snake = [
+    { x: 270, y: 270 }, // Head
+    { x: 240, y: 270 }, // Body
+    { x: 210, y: 270 }  // Tail
 let snakeDirection = null; // No se mueve hasta que el jugador presione una tecla
 let food = { x: 0, y: 0 };
 let score = 0;
@@ -193,8 +196,11 @@ function startGame() {
     snakeDirection = null; // No se mueve hasta que presione una tecla
     gameOver = false;
     score = 0;
-    snake = [{ x: 270, y: 270 }];
-
+    snake = [
+        { x: 270, y: 270 }, // Head
+        { x: 240, y: 270 }, // Middle segment
+        { x: 210, y: 270 }  // Tail
+    ];
     // Eliminar intervalos anteriores para evitar velocidad doble
     if (gameInterval) {
         clearInterval(gameInterval);
