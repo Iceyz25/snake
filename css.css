@@ -12,7 +12,11 @@ body {
 
 /* Estilo del canvas (área de juego) */
 canvas {
-    background-color: #000;
+	position: relative;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -0%);
+    	background-color: #000;
 }
 
 /* Estilo del título */
