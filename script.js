@@ -16,9 +16,9 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // Configuración del juego
-const gridSize = 20;
-const canvasSize = 400;
-let snake = [{ x: 160, y: 160 }];
+const gridSize = 40;
+const canvasSize = 600;
+let snake = [{ x: 270, y: 2700 }];
 let snakeDirection = 'right';
 let food = { x: 0, y: 0 };
 let score = 0;
@@ -124,7 +124,7 @@ function startGame() {
 document.getElementById('boton').addEventListener('click', () => {
     gameOver = false;
     score = 0;
-    snake = [{ x: 160, y: 160 }];
+    snake = [{ x: 270, y: 270 }];
     snakeDirection = 'right'; // Resetear dirección
     startGame();
 });
@@ -133,7 +133,7 @@ canvas.addEventListener('click', () => {
     if (gameOver) {
         gameOver = false;
         score = 0;
-        snake = [{ x: 160, y: 160 }];
+        snake = [{ x: 270, y: 270 }];
         snakeDirection = 'right'; // Reiniciar dirección
         startGame();
     }
