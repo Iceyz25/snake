@@ -3,5 +3,5 @@ function sayHello() {
 }
 function hidePlay() {
     document.getElementById("Contenedor").style.display = "none";
-    document.getElementById("blur-overlay").style.display = "none";
+    document.getElementByClass("blur-overlay").style.display = "none";
 }
