@@ -74,7 +74,8 @@ tailImg.src = "tailp.png"; // Tail sprite
 const cornerImg = new Image();
 cornerImg.src = "corner.png"; // ✅ Now correctly assigns the source
 
-
+const foodImg = new Image(); // ✅ New: Food sprite
+foodImg.src = "star.png";   // Replace with your food sprite file (e.g., an apple)
 
 function isCorner(prev, part, next) {
     return (
@@ -101,6 +102,7 @@ function drawGame() {
 
     ctx.clearRect(0, 0, canvasSize, canvasSize);
     ctx.drawImage(gridImage, 0, 0, canvasSize, canvasSize);
+    ctx.drawImage(foodImg, food.x, food.y, gridSize, gridSize);
     
     ctx.fillStyle = 'yellow';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
