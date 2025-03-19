@@ -2,6 +2,15 @@ body{background-color: #2a0466;}
 
 /* Estilos generales para el cuerpo */
 body {
+    background-image: url('night.jpeg'); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire page */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    margin: 0; /* Removes default margins */
+    padding: 0; /* Removes default padding */
+    height: 100vh; /* Ensures the body takes full viewport height */
+}
+body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
