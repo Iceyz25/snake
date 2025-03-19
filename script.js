@@ -102,10 +102,10 @@ function drawGame() {
 
     ctx.clearRect(0, 0, canvasSize, canvasSize);
     ctx.drawImage(gridImage, 0, 0, canvasSize, canvasSize);
+    
     ctx.drawImage(foodImg, food.x, food.y, gridSize, gridSize);
     
-    ctx.fillStyle = 'yellow';
-    ctx.fillRect(food.x, food.y, gridSize, gridSize);
+
     
     snake.forEach((part, index) => {
         let img = bodyImg;
