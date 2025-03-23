@@ -18,16 +18,29 @@
 			<img src="image.png"/>		
 			<br>
 			<br>
-			<a onclick="hidePlay()" id="boton"> Play </a>
-			<a href=html2.html">Level Selector</a>
-			<a href=html3.html">-----------</a>
-			<a href=html4.html">--------</a>
+			<input type="text" id="usernameInput" placeholder="Enter your name">
+			<button id="boton">Play</button>
+			<button href=html2.html">Level Selector</a>
+			<button href=html3.html">-----------</a>
+			<button href=html4.html">--------</a>
 	
 		</div>
 	</div> 	
-	
+	<div id="parentContenedor">
+		<div id="Retry-leaderboard">
+			<img src="image.png"/>		
+			<br>
+			<br>
+			<button id="boton2">Retry</button>
+			<div id="leaderboard"></div>
+		</div>
+	</div> 	
+
+
 	<div id="Contenido">
     		<canvas id="gameCanvas" width="600" height="600"></canvas>
+			<div id="leaderboard"></div>
+
 		
 	</div>
 </body>
