@@ -1,11 +1,17 @@
-function sayHello() {
-    alert("Hello from external JS!");
-}
+
 
 function hidePlay() {
-    document.getElementById("Contenedor").style.display = "none";
+    document.getElementById("parentContenedor").style.display = "none";
     document.getElementsByClassName("blur-overlay")[0].style.display = "none";
 }
+function showRetry() {
+    document.getElementById("Retry-leaderboard").style.display = "flex";
+    document.getElementsByClassName("blur-overlay")[0].style.display = "block";
+}
+function hideRetry() {
+    document.getElementById("Retry-leaderboard").style.display = "none";
+}
+
 function drawRotatedImage(image, x, y, angle) {
     ctx.save(); // Save current canvas state
     ctx.translate(x + gridSize / 2, y + gridSize / 2); // Move origin to center of the tile
@@ -41,6 +47,7 @@ const ctx = canvas.getContext('2d');
 // Configuración del juego
 const gridSize = 30;
 const canvasSize = 600;
+let playerName = "";
 let snake = [
     { x: 270, y: 270 }, // Head
     { x: 240, y: 270 }, // Body
@@ -52,6 +59,41 @@ let score = 0;
 let gameOver = false;
 let gameStarted = false; // Nuevo: evita que se mueva antes de presionar una tecla
 let gameInterval;
+let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+function updateLeaderboard() {
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    // Verificar si ya existe una entrada con el mismo nombre y puntaje
+    let existingEntry = leaderboard.find(entry => entry.name === playerName && entry.score === score);
+    if (!existingEntry) {
+        // Agregar el nuevo puntaje solo si no está duplicado
+        leaderboard.push({ name: playerName, score: score });
+
+        // Ordenar de mayor a menor puntaje
+        leaderboard.sort((a, b) => b.score - a.score);
+
+        // Mantener solo los 5 mejores
+        leaderboard = leaderboard.slice(0, 5);
+
+        // Guardar en `localStorage`
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    }
+}
+
+
+function displayLeaderboard() {
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    let leaderboardDiv = document.getElementById("leaderboard");
+
+    // Limpiar contenido antes de actualizar
+    leaderboardDiv.innerHTML = "<h2>Leaderboard</h2>";
+
+    leaderboard.forEach((entry, index) => {
+        leaderboardDiv.innerHTML += `<p>${index + 1}. ${entry.name} - ${entry.score}</p>`;
+    });
+}
+
 
 // Función para generar la posición de la comida
 function generateFood() {
@@ -194,6 +236,14 @@ function changeDirection(event) {
 
 // Función para iniciar o reiniciar el juego
 function startGame() {
+    playerName = document.getElementById("usernameInput").value.trim();
+    
+    if (!playerName) {
+        alert("Please enter a name to play!");
+        return;
+    }
+    hidePlay();
+    hideRetry();
     generateFood();
     gameStarted = false; // No empieza hasta que el jugador presione una tecla
     snakeDirection = null; // No se mueve hasta que presione una tecla
@@ -213,19 +263,17 @@ function startGame() {
         if (!gameOver) {
             moveSnake();
             drawGame();
+        } else {
+            showRetry();
+            updateLeaderboard();
+            displayLeaderboard();
         }
     }, 105);
 }
 
-// Reiniciar el juego al hacer clic en el canvas
-canvas.addEventListener('click', () => {
-    if (gameOver) {
-        startGame();
-    }
-});
 
 // Iniciar el juego cuando el botón es clickeado
 document.getElementById('boton').addEventListener('click', startGame);
-
+document.getElementById('boton2').addEventListener('click', startGame);
 // Escuchar las teclas para cambiar la dirección
 window.addEventListener('keydown', changeDirection);
