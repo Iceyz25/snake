@@ -108,8 +108,8 @@ canvas {
 	height: auto;
 	margin: auto;
 	float: none;
-	padding: 20px;
-	border-radius: 30px;
+	padding: 5px;
+	border-radius: 5px;
 }
 
 #Contenedor button, a, input {
